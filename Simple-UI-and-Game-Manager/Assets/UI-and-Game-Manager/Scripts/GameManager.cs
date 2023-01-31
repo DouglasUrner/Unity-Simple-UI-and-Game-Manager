@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
   // Game states. Set by UI and PlayerController.
   public bool gameIdle = true;      // Waiting to start.
   public bool gameEnding = false;   // Player has "lost," cleaning up.
+  public bool gameQuitting = false; // User wants to exit.
 
   private int score = 0;
   // Set from uiManager.gameInfo.initialHealth in StartGame().
@@ -58,15 +59,11 @@ public class GameManager : Singleton<GameManager>
   // Update is called once per frame
   void Update()
   {
-    if (!gameIdle)
-    {
-      StartGame();
-    }
+    if (!gameIdle) { StartGame(); }
 
-    if (gameEnding)
-    {
-      EndGame();
-    }
+    if (gameEnding) { EndGame(); }
+
+    if (gameQuitting) { QuitGame(); }
   }
 
   void StartGame()
@@ -77,6 +74,10 @@ public class GameManager : Singleton<GameManager>
     uiManager.DisplayHealth(health);
   }
 
+  // Called when the user has "lost" this round. For example when the
+  // player dies -- the game will be reset and the user will be able
+  // to start another round. To "quit" and stop playing the game we call
+  // QuitGame().
   void EndGame()
   {
     Time.timeScale = 0;
@@ -87,5 +88,15 @@ public class GameManager : Singleton<GameManager>
     uiManager.DisplayGameOverMessage();
     score = 0;
     health = uiManager.gameInfo.initialHealth;
+  }
+
+  void QuitGame()
+  {
+    #if UNITY_EDITOR
+      // Application.Quit is ignored in the editor,
+      // but this will get us out.
+      UnityEditor.EditorApplication.isPlaying = false;
+    #endif
+    Application.Quit();
   }
 }

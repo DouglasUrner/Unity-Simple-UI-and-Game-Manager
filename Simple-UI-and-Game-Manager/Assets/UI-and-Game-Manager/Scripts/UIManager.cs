@@ -77,8 +77,8 @@ public class UIManager : Singleton<UIManager>
 
   public void QuitButtonClicked()
   {
-    Debug.Log("QuitButtonClicked(): time to figure out what to do...");
-    // XXX - at a minimum set a flag in the game manager.
+    Debug.Log("QuitButtonClicked(): time to figure out what else to do...");
+    gameManager.gameQuitting = true;
   }
 
   public void DisplayGameOverMessage()
