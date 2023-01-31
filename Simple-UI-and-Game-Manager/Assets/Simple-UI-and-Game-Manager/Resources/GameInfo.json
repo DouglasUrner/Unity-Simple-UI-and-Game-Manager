@@ -1,0 +1,12 @@
+{
+  "title":        "Title (from Resources/GameInfo.json)",
+  "description":  "Description (from Resources/GameInfo.json).",
+  "gameOverMessage": "Game over message (from Resources/GameInfo.json).",
+  "startButtonLabel": "Start (from GameInfo.json)",
+  "quitButtonLabel": "Quit (from GameInfo.json)",
+  "replayButtonLabel": "Replay (from GameInfo.json)",
+  "displayQuitButton": true,
+  "displayScore": true,
+  "displayHealth": true,
+  "initialHealth": 5
+}
