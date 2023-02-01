@@ -18,5 +18,5 @@ public class GameInfo
   public bool displayHealth = false;
   public int initialHealth = 3;
   // Webpage to load when quitting a WebGL game.
-  public string page = "about:blank";
+  public string url = "about:blank";
 }
