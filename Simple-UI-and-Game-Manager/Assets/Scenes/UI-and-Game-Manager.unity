@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1a8583f00b74981b2cbc25e3b1a792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
+  debug: 1
   gameInfoJSON: {fileID: 4900000, guid: 9bacfab8d6a5a4b96b19a9dfdc971cd0, type: 3}
 --- !u!4 &837898450
 Transform:
