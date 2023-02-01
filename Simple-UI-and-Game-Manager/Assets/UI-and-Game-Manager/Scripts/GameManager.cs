@@ -108,14 +108,12 @@ public class GameManager : Singleton<GameManager>
       // but this will get us out.
       UnityEditor.EditorApplication.isPlaying = false;
     #elif (UNITY_WEBGL)
-      // Exit from web player by redirecting to another page.
-      // Application.OpenURL(uiManager.gameInfo.page); // Loops, runs afoul of popup blocker...
-      // Found this: https://forum.unity.com/threads/quit-and-memory-cleanup.571210/page-2
+      // Exit from web player by redirecting to another page -- call goes
+      // through JavaScript interface. Docs at:
+      // https://docs.unity3d.com/Manual/webgl-interactingwithbrowserscripting
       WebGLQuit(uiManager.gameInfo.url);
-      //Application.ExternalEval($"window.open('{uiManager.gameInfo.page}', '_self')");
-    #else
-      // Standalone (macOS, Linux, Windows).
-      Application.Quit();
     #endif
+    // General cleanup and standalone (macOS, Linux, Windows).
+    Application.Quit();
   }
 }
