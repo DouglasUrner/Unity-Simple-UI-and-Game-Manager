@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -18,6 +19,9 @@ public class GameManager : Singleton<GameManager>
   // UI interface
   public GameObject uiPrefab;
   private UIManager uiManager;
+
+  [DllImport("__Internal")]
+  private static extern void WebGLQuit(string url);
 
   private float savedTimeScale;
 
@@ -105,6 +109,7 @@ public class GameManager : Singleton<GameManager>
       // Exit from web player by redirecting to another page.
       // Application.OpenURL(uiManager.gameInfo.page); // Loops, runs afoul of popup blocker...
       // Found this: https://forum.unity.com/threads/quit-and-memory-cleanup.571210/page-2
+      WebGLQuit(uiManager.gameInfo.page);
       Application.ExternalEval($"window.open('{uiManager.gameInfo.page}', '_self')");
     #else
       // Standalone (macOS, Linux, Windows).
