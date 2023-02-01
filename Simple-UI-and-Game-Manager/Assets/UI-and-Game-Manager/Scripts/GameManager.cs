@@ -110,7 +110,7 @@ public class GameManager : Singleton<GameManager>
       // Application.OpenURL(uiManager.gameInfo.page); // Loops, runs afoul of popup blocker...
       // Found this: https://forum.unity.com/threads/quit-and-memory-cleanup.571210/page-2
       WebGLQuit(uiManager.gameInfo.page);
-      Application.ExternalEval($"window.open('{uiManager.gameInfo.page}', '_self')");
+      //Application.ExternalEval($"window.open('{uiManager.gameInfo.page}', '_self')");
     #else
       // Standalone (macOS, Linux, Windows).
       Application.Quit();
