@@ -1,4 +1,4 @@
-# Instructions
+# Unity Simple UI-and-Game-Manager Package Setup Instructions
 
 ## Basic Setup
 
