@@ -8,5 +8,6 @@
   "displayQuitButton": true,
   "displayScore": true,
   "displayHealth": true,
-  "initialHealth": 5
+  "initialHealth": 5,
+  "page": "https://game-design-and-programming.github.io/2022-2023"
 }

@@ -92,11 +92,23 @@ public class GameManager : Singleton<GameManager>
 
   void QuitGame()
   {
-    #if UNITY_EDITOR
+    #if (UNITY_EDITOR || DEVELOPMENT_BUILD)
+      var methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+      Debug.Log($"{this.name}: {this.GetType()}: {methodName}()");
+    #endif
+
+    #if (UNITY_EDITOR)
       // Application.Quit is ignored in the editor,
       // but this will get us out.
       UnityEditor.EditorApplication.isPlaying = false;
+    #elif (UNITY_WEBGL)
+      // Exit from web player by redirecting to another page.
+      // Application.OpenURL(uiManager.gameInfo.page); // Loops, runs afoul of popup blocker...
+      // Found this: https://forum.unity.com/threads/quit-and-memory-cleanup.571210/page-2
+      Application.ExternalEval($"window.open('{uiManager.gameInfo.page}', '_self')");
+    #else
+      // Standalone (macOS, Linux, Windows).
+      Application.Quit();
     #endif
-    Application.Quit();
   }
 }
