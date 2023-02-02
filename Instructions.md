@@ -23,6 +23,12 @@ When the game ends, the UI is displayed again and, if it is enabled, the **Quit*
 
 ## Tracking Score & Health
 
+### With a Sensor
+
+Adding a Sensor in a location where an "interesting event" can be detected by a collision is an easy way to handle scoring, health, or ending a game round. The Sensor script can be configured to detect entering or leaving a collider, and to register "end game," "add (or subtract) points," and "increase (decrease) health" events.
+
+### By calling the GameManager methods directly
+
 The GameManager methods:
 
 * AddPoints(int points)
