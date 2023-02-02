@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2171574578796954280}
+  - component: {fileID: 2171574578796954276}
   - component: {fileID: 2171574578796954279}
   - component: {fileID: 2171574578796954278}
   - component: {fileID: 2171574578796954277}
-  - component: {fileID: 2171574578796954276}
   m_Layer: 0
   m_Name: Sensor
   m_TagString: Untagged
@@ -34,6 +34,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2171574578796954276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2171574578796954275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5277d1af09f64f0b962c829fe45924c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: 0
+  amount: 1
+  collisionEvent: 0
 --- !u!33 &2171574578796954279
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -97,15 +112,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2171574578796954276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2171574578796954275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5277d1af09f64f0b962c829fe45924c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
