@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Sensor : MonoBehaviour
 {
-    private GameManager gameManager;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-       gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>(); 
-    }
+  private GameManager gameManager;
 
-    void OnTriggerEnter()
-    {
-        gameManager.gameEnding = true;
-    }
+  // Start is called before the first frame update
+  void Start()
+  {
+    gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>(); 
+  }
+
+  void OnTriggerEnter()
+  {
+    gameManager.gameEnding = true;
+  }
 }
