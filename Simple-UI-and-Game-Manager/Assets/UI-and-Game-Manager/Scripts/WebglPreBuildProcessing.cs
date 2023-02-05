@@ -1,4 +1,4 @@
-#if UNITY_EDITOR
+#if UNITY_EDITOR && MACOS
 
 /*
 ** Set up the WebGL build environment for Unity < 2021.3.41f1 on
