@@ -27,7 +27,6 @@ public class Sensor : MonoBehaviour
   public CollisionAction action = CollisionAction.endGame;
   public int amount = 1;
   public CollisionEvent collisionEvent = CollisionEvent.onEnter;
-  public bool hideOnPlay = false;
   
   private GameManager gameManager;
 
