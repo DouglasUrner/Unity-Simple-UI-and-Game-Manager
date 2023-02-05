@@ -10,7 +10,6 @@ public class AdditiveSceneManager : MonoBehaviour
 
   void Awake()
   {
-    Debug.Log($"WebglPreBuildProcessing: {Environment.OSVersion.ToString()}");
     // This code could be in the !UNITY_EDITOR section below, but since
     // the Unity players don't have easy console access, it seems to make
     // sense to check here instead. If the UI scene is not at index 0, then

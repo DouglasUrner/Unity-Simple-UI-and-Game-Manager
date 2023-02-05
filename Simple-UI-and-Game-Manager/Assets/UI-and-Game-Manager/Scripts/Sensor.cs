@@ -14,14 +14,19 @@ public class Sensor : MonoBehaviour
     subHealth
   }
 
+  public bool destroySelf = false;
+  public bool destroyOther = false;
+
   public enum CollisionEvent
   {
     onEnter,
     onExit
   }
+
   public CollisionAction action = CollisionAction.endGame;
   public int amount = 1;
   public CollisionEvent collisionEvent = CollisionEvent.onEnter;
+  
   private GameManager gameManager;
 
   // Start is called before the first frame update
@@ -30,11 +35,11 @@ public class Sensor : MonoBehaviour
     gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>(); 
   }
 
-  void OnTriggerEnter()
+  void OnTriggerEnter(Collider c)
   {
     if (collisionEvent == CollisionEvent.onEnter)
     {
-      TriggerAction();
+      TriggerAction(c);
     }
     else
     {
@@ -42,11 +47,11 @@ public class Sensor : MonoBehaviour
     }
   }
 
-  void OnTriggerExit()
+  void OnTriggerExit(Collider c)
   {
     if (collisionEvent == CollisionEvent.onExit)
     {
-      TriggerAction();
+      TriggerAction(c);
     }
     else
     {
@@ -54,8 +59,11 @@ public class Sensor : MonoBehaviour
     }
   }
 
-  void TriggerAction()
+  void TriggerAction(Collider collider)
   {
+    if (destroySelf) { Destroy(gameObject); }
+    if (destroyOther) { Destroy(collider.gameObject); }
+
     switch (action)
     {
       case CollisionAction.endGame:
@@ -74,7 +82,7 @@ public class Sensor : MonoBehaviour
         gameManager.DecreaseHealth(amount);
         break;
       default:
-        Debug.Log($"unhandled CollisionAction: {action}");
+        Debug.LogErrorFormat($"unhandled CollisionAction: {action}");
         break;
     }
   }

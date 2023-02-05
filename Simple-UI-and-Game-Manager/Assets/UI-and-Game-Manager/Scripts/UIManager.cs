@@ -6,7 +6,7 @@ using TMPro;
 
 public class UIManager : Singleton<UIManager>
 {
-  public bool debug = true;
+  public bool debug;
 
   // Configuration file.
   public TextAsset gameInfoJSON;
@@ -31,8 +31,9 @@ public class UIManager : Singleton<UIManager>
 
   void Start()
   {
-    if (debug) Debug.Log("UIManager.Start()");
     gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+    debug = gameManager.globalDebug;
+    if (debug) Debug.Log("UIManager.Start()");
     gameInfo = JsonUtility.FromJson<GameInfo>(gameInfoJSON.text);
     if (debug)
     {

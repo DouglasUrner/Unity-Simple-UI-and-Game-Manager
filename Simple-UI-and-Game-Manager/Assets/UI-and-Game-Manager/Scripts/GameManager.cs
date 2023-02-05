@@ -9,11 +9,16 @@ public class GameManager : Singleton<GameManager>
 {
   // Game states. Set by UI and PlayerController.
   public bool gameIdle = true;      // Waiting to start.
+  public bool gameRunning = false;  // Actively playing.
   public bool gameEnding = false;   // Player has "lost," cleaning up.
   public bool gameQuitting = false; // User wants to exit.
 
+  public bool globalDebug = true;   // Enable all debugging.
+
+  [SerializeField]
   private int score = 0;
-  // Set from uiManager.gameInfo.initialHealth in StartGame().
+  // Health is set from uiManager.gameInfo.initialHealth in StartGame().
+  [SerializeField]
   private int health = -1;
 
   // UI interface
@@ -26,11 +31,15 @@ public class GameManager : Singleton<GameManager>
   private float savedTimeScale;
 
   // Public interface.
-  public void AddPoints(int points) { score += points; }
-  public void IncreaseHealth(int amt) { health += amt; }
+  public void AddPoints(int points)
+  { score += points; uiManager.DisplayScore(score); }
+  public void IncreaseHealth(int amt)
+  { health += amt; uiManager.DisplayHealth(health); }
   public void DecreaseHealth(int amt)
   {
+    if (globalDebug) { Trace(health); }
     health -= amt;
+    uiManager.DisplayHealth(health);
     if (health <= 0)
     {
       EndGame();
@@ -63,7 +72,7 @@ public class GameManager : Singleton<GameManager>
   // Update is called once per frame
   void Update()
   {
-    if (!gameIdle) { StartGame(); }
+    if (!gameIdle && !gameRunning){ StartGame(); }
 
     if (gameEnding) { EndGame(); }
 
@@ -72,10 +81,12 @@ public class GameManager : Singleton<GameManager>
 
   void StartGame()
   {
+    if (globalDebug) { Debug.Log($"StartGame()"); }
     Time.timeScale = savedTimeScale;
     uiManager.DisplayScore(score);
     health = uiManager.gameInfo.initialHealth;
     uiManager.DisplayHealth(health);
+    gameRunning = true;
   }
 
   // Called when the user has "lost" this round. For example when the
@@ -87,6 +98,7 @@ public class GameManager : Singleton<GameManager>
     Time.timeScale = 0;
     gameEnding = false;
     gameIdle = true;
+    gameRunning = false;
     // Reload scene.
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     uiManager.DisplayGameOverMessage();
@@ -115,5 +127,10 @@ public class GameManager : Singleton<GameManager>
     #endif
     // General cleanup and standalone (macOS, Linux, Windows).
     Application.Quit();
+  }
+
+  public void Trace(int info)
+  {
+    Debug.Log($"{info}");
   }
 }
