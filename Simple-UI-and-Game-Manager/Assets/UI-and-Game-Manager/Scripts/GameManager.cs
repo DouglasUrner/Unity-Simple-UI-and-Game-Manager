@@ -8,10 +8,16 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
   // Game states. Set by UI and PlayerController.
-  public bool gameIdle = true;      // Waiting to start.
-  public bool gameRunning = false;  // Actively playing.
-  public bool gameEnding = false;   // Player has "lost," cleaning up.
-  public bool gameQuitting = false; // User wants to exit.
+  public enum GameState
+  {
+    gameIdle,     // Waiting to start.
+    gameStart,    // Start button clicked, but GameStart not yet called.
+    gameRunning,  // Actively playing.
+    gameEnding,   // Player has "lost," cleaning up.
+    gameQuitting  // User wants to exit.
+  }
+
+  public GameState gameState = GameState.gameIdle;
 
   public static bool globalDebug = true;   // Enable all debugging.
 
@@ -79,11 +85,11 @@ public class GameManager : Singleton<GameManager>
   // Update is called once per frame
   void Update()
   {
-    if (!gameIdle && !gameRunning){ StartGame(); }
+    if (gameState == GameState.gameStart){ StartGame(); }
 
-    if (gameEnding) { EndGame(); }
+    if (gameState == GameState.gameEnding) { EndGame(); }
 
-    if (gameQuitting) { QuitGame(); }
+    if (gameState == GameState.gameQuitting) { QuitGame(); }
   }
 
   void StartGame()
@@ -93,7 +99,7 @@ public class GameManager : Singleton<GameManager>
     uiManager.DisplayScore(score);
     health = gameInfo.initialHealth;
     uiManager.DisplayHealth(health);
-    gameRunning = true;
+    gameState = GameManager.GameState.gameRunning;
   }
 
   // Called when the user has "lost" this round. For example when the
@@ -103,9 +109,7 @@ public class GameManager : Singleton<GameManager>
   void EndGame()
   {
     Time.timeScale = 0;
-    gameEnding = false;
-    gameIdle = true;
-    gameRunning = false;
+    gameState = GameState.gameIdle;
     // Reload scene.
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     uiManager.DisplayGameOverMessage();

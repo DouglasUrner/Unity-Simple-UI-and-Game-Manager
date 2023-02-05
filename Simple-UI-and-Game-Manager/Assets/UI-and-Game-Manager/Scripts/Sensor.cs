@@ -16,6 +16,7 @@ public class Sensor : MonoBehaviour
 
   public bool destroySelf = false;
   public bool destroyOther = false;
+  public bool hideOnPlay = false;
 
   public enum CollisionEvent
   {
@@ -69,7 +70,7 @@ public class Sensor : MonoBehaviour
     switch (action)
     {
       case CollisionAction.endGame:
-        gameManager.gameEnding = true;
+        gameManager.gameState = GameManager.GameState.gameEnding;
         break;
       case CollisionAction.addPoints:
         gameManager.AddPoints(amount);

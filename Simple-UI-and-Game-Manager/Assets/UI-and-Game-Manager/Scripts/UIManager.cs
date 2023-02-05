@@ -67,13 +67,13 @@ public class UIManager : Singleton<UIManager>
     quitButton.gameObject.SetActive(gameInfo.displayQuitButton);
     scorePanel.SetActive(gameInfo.displayScore);
     healthPanel.SetActive(gameInfo.displayHealth);
-    gameManager.gameIdle = false;
+    gameManager.gameState = GameManager.GameState.gameStart;
   }
 
   public void QuitButtonClicked()
   {
-    Debug.Log("QuitButtonClicked(): time to figure out what else to do...");
-    gameManager.gameQuitting = true;
+    // Debug.Log("QuitButtonClicked(): time to figure out what else to do...");
+    gameManager.gameState = GameManager.GameState.gameQuitting;
   }
 
   public void DisplayGameOverMessage()
