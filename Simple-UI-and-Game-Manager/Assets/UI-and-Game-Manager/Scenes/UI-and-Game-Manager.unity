@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311926, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -156,9 +156,9 @@ MonoBehaviour:
   gameRunning: 0
   gameEnding: 0
   gameQuitting: 0
-  globalDebug: 0
   score: 0
   health: -1
+  gameInfoJSON: {fileID: 4900000, guid: 9bacfab8d6a5a4b96b19a9dfdc971cd0, type: 3}
   uiPrefab: {fileID: 0}
 --- !u!4 &384677196
 Transform:
@@ -440,7 +440,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 1
-  gameInfoJSON: {fileID: 4900000, guid: 9bacfab8d6a5a4b96b19a9dfdc971cd0, type: 3}
 --- !u!4 &837898450
 Transform:
   m_ObjectHideFlags: 0

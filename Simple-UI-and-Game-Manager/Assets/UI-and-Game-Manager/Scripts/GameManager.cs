@@ -13,13 +13,18 @@ public class GameManager : Singleton<GameManager>
   public bool gameEnding = false;   // Player has "lost," cleaning up.
   public bool gameQuitting = false; // User wants to exit.
 
-  public bool globalDebug = true;   // Enable all debugging.
+  public static bool globalDebug = true;   // Enable all debugging.
 
   [SerializeField]
   private int score = 0;
-  // Health is set from uiManager.gameInfo.initialHealth in StartGame().
+  // Health is set from gameInfo.initialHealth in StartGame().
   [SerializeField]
   private int health = -1;
+
+  // Configuration file.
+  public TextAsset gameInfoJSON;
+  // Configuration info.
+  public GameInfo gameInfo;
 
   // UI interface
   public GameObject uiPrefab;
@@ -50,6 +55,8 @@ public class GameManager : Singleton<GameManager>
   {
     savedTimeScale = Time.timeScale;
     Time.timeScale = 0;
+
+    gameInfo = InitializeGameInfo(gameInfoJSON);
 
     // Instantiate the UI prefab if it is not found.
     if ((uiManager = GameObject.Find("UI").GetComponent<UIManager>()) == null)
@@ -84,7 +91,7 @@ public class GameManager : Singleton<GameManager>
     if (globalDebug) { Debug.Log($"StartGame()"); }
     Time.timeScale = savedTimeScale;
     uiManager.DisplayScore(score);
-    health = uiManager.gameInfo.initialHealth;
+    health = gameInfo.initialHealth;
     uiManager.DisplayHealth(health);
     gameRunning = true;
   }
@@ -103,7 +110,7 @@ public class GameManager : Singleton<GameManager>
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     uiManager.DisplayGameOverMessage();
     score = 0;
-    health = uiManager.gameInfo.initialHealth;
+    health = gameInfo.initialHealth;
   }
 
   void QuitGame()
@@ -111,8 +118,8 @@ public class GameManager : Singleton<GameManager>
     #if (UNITY_EDITOR || DEVELOPMENT_BUILD)
       var methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
       Debug.Log($"{this.name}: {this.GetType()}: {methodName}()");
-      if (uiManager.debug)
-        Debug.Log($"{methodName}(): url = {uiManager.gameInfo.url}");
+      if (globalDebug)
+        Debug.Log($"{methodName}(): url = {gameInfo.url}");
     #endif
 
     #if (UNITY_EDITOR)
@@ -123,10 +130,23 @@ public class GameManager : Singleton<GameManager>
       // Exit from web player by redirecting to another page -- call goes
       // through JavaScript interface. Docs at:
       // https://docs.unity3d.com/Manual/webgl-interactingwithbrowserscripting
-      WebGLQuit(uiManager.gameInfo.url);
+      WebGLQuit(gameInfo.url);
     #endif
     // General cleanup and standalone (macOS, Linux, Windows).
     Application.Quit();
+  }
+
+  static GameInfo InitializeGameInfo(TextAsset json)
+  {
+    GameInfo gameInfo = new GameInfo();
+
+    gameInfo = JsonUtility.FromJson<GameInfo>(json.text);
+    if (globalDebug)
+    {
+      Debug.Log($"GameInfo (from {json.name}):\n{json.text}");
+    }
+
+    return gameInfo;
   }
 
   public void Trace(int info)

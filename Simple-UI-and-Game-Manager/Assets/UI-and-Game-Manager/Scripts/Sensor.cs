@@ -26,13 +26,15 @@ public class Sensor : MonoBehaviour
   public CollisionAction action = CollisionAction.endGame;
   public int amount = 1;
   public CollisionEvent collisionEvent = CollisionEvent.onEnter;
+  public bool hideOnPlay = false;
   
   private GameManager gameManager;
 
   // Start is called before the first frame update
   void Start()
   {
-    gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>(); 
+    gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+    if (hideOnPlay) { GetComponent<Renderer>().enabled = false; }
   }
 
   void OnTriggerEnter(Collider c)

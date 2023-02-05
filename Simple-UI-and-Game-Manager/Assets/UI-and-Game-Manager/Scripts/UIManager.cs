@@ -7,11 +7,6 @@ using TMPro;
 public class UIManager : Singleton<UIManager>
 {
   public bool debug;
-
-  // Configuration file.
-  public TextAsset gameInfoJSON;
-  // Configuration info.
-  public GameInfo gameInfo = new GameInfo();
   
   // UI elements.
   private GameObject leftUIPanel;
@@ -28,17 +23,16 @@ public class UIManager : Singleton<UIManager>
   private TextMeshProUGUI healthText;
 
   private GameManager gameManager;
+  private GameInfo gameInfo;
 
   void Start()
   {
-    gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-    debug = gameManager.globalDebug;
+    debug = GameManager.globalDebug;
     if (debug) Debug.Log("UIManager.Start()");
-    gameInfo = JsonUtility.FromJson<GameInfo>(gameInfoJSON.text);
-    if (debug)
-    {
-      Debug.Log($"GameInfo (from {gameInfoJSON.name}):\n{gameInfoJSON.text}");
-    }
+    
+    // XXX - this could be static no?
+    gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+    gameInfo = gameManager.gameInfo;
 
     GetUIElementReferences();
 
