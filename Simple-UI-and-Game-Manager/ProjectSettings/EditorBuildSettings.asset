@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/UI-and-Game-Manager/Scenes/UI-and-Game-Manager.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Placeholder (do not export).unity
     guid: 21cf360b17da64a3786e5b879afa8fb5
+  - enabled: 1
+    path: Assets/UI-and-Game-Manager-Example/Scenes/Ui-and-Game-Manager-Example.unity
+    guid: ec5822051a3164e079d5545cd440f86e
   m_configObjects: {}
